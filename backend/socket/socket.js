@@ -6,7 +6,7 @@ const app = express()
 const server = http.createServer(app)
 const io = new Server(server,{
     cors:{
-        origin:["https://visual-vault-app.vercel.app"],
+        origin:["https://visual-vault-app.vercel.app/"],
         methods:["GET","POST","PUT","DELETE"],
         credentials:true
     }
