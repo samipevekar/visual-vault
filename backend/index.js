@@ -7,7 +7,8 @@ const cookieParser = require("cookie-parser")
   
 app.use(cors({
     origin:"https://visual-vault-app.vercel.app/",
-    credentials:true
+    credentials:true,
+    optionsSuccessStatus:200
 }));
 
 app.use(express.json())
