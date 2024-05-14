@@ -2,7 +2,6 @@ require('dotenv').config({ path: '.env.local' });
 const User = require("../models/user")
 const express = require("express")
 const app =express()
-const cors = require("cors")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const fetchuser = require("../middleware/middleware")
@@ -11,11 +10,6 @@ const fetchuser = require("../middleware/middleware")
 
 const JWT_SECRET = process.env.JWT_SIGN
 
-
-app.use(cors({
-    origin:"*",
-    credentials:true
-}));
 
 
 
