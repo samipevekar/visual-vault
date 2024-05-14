@@ -7,7 +7,8 @@ import io from "socket.io-client"
 
 export default function ContextApi(props) {
 
-  const HOST = "https://visual-vault-indol.vercel.app/"
+  // const HOST = "http://localhost:4000" 
+  const HOST = "https://visual-vault-indol.vercel.app" 
 
     // creating sidebar with toggle button
     const [isOpen,setIsOpen] = useState(false)  
@@ -143,7 +144,7 @@ export default function ContextApi(props) {
 
     useEffect(()=>{
         if(userInfo){
-            const socket = io("https://visual-vault-indol.vercel.app/",{
+            const socket = io(HOST,{
                 query:{
                     userId:userInfo._id
                 }
