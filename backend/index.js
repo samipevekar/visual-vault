@@ -6,9 +6,10 @@ const {app,server} = require("./socket/socket")
 const cookieParser = require("cookie-parser")
   
 app.use(cors({
-    origin:"*",
+    origin:"https://visual-vault-app.vercel.app",
     credentials:true
 }));
+
 app.use(express.json())
 app.use(cookieParser())
 

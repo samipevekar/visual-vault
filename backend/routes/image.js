@@ -5,13 +5,7 @@ const Images = require("../models/image");
 const multer = require("multer");
 const path = require('path');
 const os = require('os');
-const cors = require("cors")
 
-
-app.use(cors({
-    origin:"*",
-    credentials:true
-}));
 
 // Creating image storage
 
