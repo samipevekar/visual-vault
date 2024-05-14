@@ -8,9 +8,7 @@ const io = new Server(server, {
   cors: {
     origin: ["https://visual-vault-app.vercel.app", "http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["content-type"],
     credentials: true,
-    optionsSuccessStatus: 200,
   },
 });
 
@@ -24,7 +22,7 @@ io.on("connection", (socket) => {
   console.log("a user connected", socket.id);
 
   const userId = socket.handshake.query.userId;
-  if (userId !== undefined && userId != "undefined") userSocketMap[userId] = socket.id;
+  if (userId !== "undefined") userSocketMap[userId] = socket.id;
 
   // io.emit() is used to send events to all connected clients
   io.emit("getOnlineUsers", Object.keys(userSocketMap));
