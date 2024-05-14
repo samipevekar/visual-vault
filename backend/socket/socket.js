@@ -8,7 +8,8 @@ const io = new Server(server,{
     cors:{
         origin:["https://visual-vault-app.vercel.app/"],
         methods:["GET","POST","PUT","DELETE"],
-        credentials:true
+        credentials:true,
+        optionsSuccessStatus:200
     }
 });
 
