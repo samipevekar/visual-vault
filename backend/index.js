@@ -6,7 +6,7 @@ const {app,server} = require("./socket/socket")
 const cookieParser = require("cookie-parser")
   
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:"*",
     credentials:true
 }));
 app.use(express.json())
