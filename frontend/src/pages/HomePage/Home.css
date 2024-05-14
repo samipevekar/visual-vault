@@ -1,0 +1,10 @@
+.homepage{
+    display: flex;
+
+}
+.homeComponents{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+

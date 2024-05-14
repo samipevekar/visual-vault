@@ -1,0 +1,48 @@
+.home-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 100px;
+    height: 80vh;
+    word-wrap: wrap;
+    text-align: center;
+    padding: 20px;
+
+}
+.home-logo{
+    width: 100px;
+    filter: drop-shadow(3px 5px 5px black);
+}
+
+.home-heading {
+    color: transparent;
+    filter:drop-shadow( 3px 5px 2px black);
+    background: radial-gradient(#dc3545, rgb(66, 66, 255));
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 50px;
+}
+  
+.home-paragraph{
+    font-size: 20px;
+    line-height: 40px;
+    color: #dc3545
+}
+.home1-para{
+    color: #0278ff;
+}
+.home-button{
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 10px;
+    text-decoration: none;
+    transition: all .5s;
+    background-color: #dc354654;
+    color: #dc3545;
+}
+.home-button:hover{    
+    background-color: #dc3545;
+    color: white;
+}

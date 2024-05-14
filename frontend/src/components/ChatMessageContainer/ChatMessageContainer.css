@@ -1,0 +1,17 @@
+@media (max-width:900px){
+    .messageContainer{
+        width: 100%;
+    }
+    .no-chat-selected{
+        display: none !important;
+    }
+}
+@media (min-width:1200px){
+    .messageContainer{
+        width: 650px !important;
+    }
+}
+
+.messageContainer::-webkit-scrollbar {
+    width: 0px !important ; /* Adjust the width as needed */
+  }
