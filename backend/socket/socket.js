@@ -6,11 +6,17 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["https://visual-vault-app.vercel.app", "http://localhost:5173", "https://visual-vault-indol.vercel.app"],
+    origin: ["https://visual-vault-app.vercel.app", "http://localhost:5173","*"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   },
 });
+
+app.use(cors({
+  origin: ['https://visual-vault-app.vercel.app', 'http://localhost:5173',"*"],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
+}));
 
 const getReceiverSocketId = (receiverId) => {
   return userSocketMap[receiverId];
