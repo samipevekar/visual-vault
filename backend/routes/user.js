@@ -1,4 +1,3 @@
-require('dotenv').config();
 const User = require("../models/user")
 const express = require("express")
 const app =express()
@@ -8,7 +7,7 @@ const fetchuser = require("../middleware/middleware")
 
 
 
-const JWT_SECRET = process.env.JWT_SIGN
+const JWT_SECRET = "unknownproject"
 
 
 
