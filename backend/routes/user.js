@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '.env.local' });
+require('dotenv').config();
 const User = require("../models/user")
 const express = require("express")
 const app =express()
