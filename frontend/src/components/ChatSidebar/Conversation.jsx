@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import useConversation from '../../zustand/userConversation'
 import shopContext from '../../Context/ShopContext'
+import user1 from '../assets/user1.png'
 
 export default function Conversation({conversation,lastIdx}) {
 
@@ -20,7 +21,9 @@ export default function Conversation({conversation,lastIdx}) {
     <div className={`flex p-2 items-center gap-3 hover:bg-red-500 rounded cursor-pointer ${isSelected ? " bg-red-500" : ""}`} onClick={()=> setSelectedConversation(conversation)}>
         <div className={`avatar ${isOnline ? 'online':''} `}>
             <div className="w-12 rounded-full">
-                <img src={conversation.profilePic} />
+                <img src={conversation.profilePic} onError={(e) => {
+                e.target.src = user1;
+            }} />
             </div>
         </div>
         <div className='flex flex-col flex-1'>

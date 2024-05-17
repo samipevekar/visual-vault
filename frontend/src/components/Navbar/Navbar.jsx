@@ -58,13 +58,18 @@ export default function Navbar() {
 
       {/* user information  */}
     <div className="userLogo" onClick={handle_dropdown}>
-      <img src={userInfo.profilePic} alt="" />
+      <img src={userInfo.profilePic} onError={(e) => {
+                e.target.src = user1;
+            }}
+            alt=""/>
       <p>{localStorage.getItem("auth-token")?userInfo.name:""}</p>
     </div>
     <div className={isDropdownOpen?`dropdownModal dropdownOpen `:`dropdownModal `}>
 
       {localStorage.getItem("auth-token")?<div className="userInformation">
-        <img src={userInfo.profilePic} alt="" />
+        <img src={userInfo.profilePic} alt="" onError={(e) => {
+                e.target.src = user1;
+            }} />
         <h5 className='my-2 font-semibold text-[20px]'>{userInfo.name}</h5>
         <p>{userInfo.username}</p>
       </div>:<></>}
