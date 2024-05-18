@@ -86,6 +86,7 @@ app.post("/login",async(req,res)=>{
             }
         }
     
+        
         const token = jwt.sign(userdata,JWT_SECRET)
     
         res.json({success:true,token})
