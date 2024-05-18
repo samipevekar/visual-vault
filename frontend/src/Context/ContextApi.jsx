@@ -123,21 +123,14 @@ export default function ContextApi(props) {
       });
       setSocket(newSocket);
 
-      newSocket.on("connect", () => {
-        console.log("Connected to the server", newSocket.id);
-      });
-
       newSocket.on("getOnlineUsers", (users) => {
         setOnlineUsers(users);
       });
 
-      newSocket.on("disconnect", () => {
-        console.log("Disconnected from the server");
-      });
 
       return () => {
         newSocket.close();
-        console.log("Socket closed");
+        setSocket(null)
       };
     }
   }, [userInfo]);
