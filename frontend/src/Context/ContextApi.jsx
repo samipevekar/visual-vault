@@ -109,10 +109,17 @@ export default function ContextApi(props) {
     if (userInfo && userInfo._id) {
       const newSocket = io(HOST, {
         query: { userId: userInfo._id },
-        transports: ['websocket'],
-        upgrade: false
+        transports: ['websocket', 'polling'],
+        reconnection: true,
+        reconnectionDelay: 1000,
+        reconnectionDelayMax: 5000,
+        path: '/socket',
+        reconnectionAttempts: 5,
       });
-      setSocket(newSocket);
+
+      newSocket.on('error', (error) => {
+        console.error('WebSocket Error:', error.message);
+      });
 
       newSocket.on("connect_error", (error) => {
         console.error("Connection Error:", error);
@@ -122,6 +129,8 @@ export default function ContextApi(props) {
       newSocket.on("getOnlineUsers", (users) => {
         setOnlineUsers(users);
       });
+
+      setSocket(newSocket);
 
       return () => {
         newSocket.close();
