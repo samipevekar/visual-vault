@@ -4,16 +4,14 @@ import toast from "react-hot-toast";
 import io from "socket.io-client";
 
 export default function ContextApi(props) {
-  // const HOST = "http://localhost:4000"; 
-  const HOST = "https://visual-vault-indol.vercel.app";
+  // const HOST = "https://visual-vault-indol.vercel.app";
+  const HOST = "http://localhost:4000";
 
-  // Creating sidebar with toggle button
-  const [isOpen, setIsOpen] = useState(false);  
+  const [isOpen, setIsOpen] = useState(false);
   const handle_toggle = () => {
     setIsOpen(!isOpen);
   };
 
-  // Function to get data in date/day/year format
   function formatDate(dateString) {
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
@@ -21,8 +19,7 @@ export default function ContextApi(props) {
     return `${day} ${month} ${year}`;
   }
 
-  // API to get userInfo      
-  const [userInfo, setUserInfo] = useState([]); // Getting userInfo 
+  const [userInfo, setUserInfo] = useState({});
   const getUser = async () => {
     try {
       const response = await fetch(`${HOST}/api/auth/getuser`, {
@@ -31,14 +28,13 @@ export default function ContextApi(props) {
           "auth-token": localStorage.getItem("auth-token")
         }
       });
-      let data = await response.json();
+      const data = await response.json();
       setUserInfo(data);
     } catch (error) {
       toast.error("Internal server error");
     }
   };
 
-  // API to get all users
   const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const getAllUsers = async () => {
@@ -59,10 +55,7 @@ export default function ContextApi(props) {
     }
   };
 
-  // To get all image data
-  const [imageData, setImageData] = useState([]);  
-
-  // API to get all images
+  const [imageData, setImageData] = useState([]);
   const all_images = async () => {
     try {
       setProgress(30);
@@ -73,7 +66,7 @@ export default function ContextApi(props) {
         }
       });
       setProgress(50);
-      let data = await response.json();
+      const data = await response.json();
       setImageData(data);
     } catch (error) {
       toast.error("Internal server error");
@@ -82,18 +75,17 @@ export default function ContextApi(props) {
     }
   };
 
-  // API to get all favorite images   
   const favorite_images = async () => {
     try {
       setProgress(30);
-      let response = await fetch(`${HOST}/api/image/getfavoriteimage`, {
+      const response = await fetch(`${HOST}/api/image/getfavoriteimage`, {
         method: "GET",
         headers: {
           "auth-token": localStorage.getItem("auth-token")
         }
       });
       setProgress(50);
-      let data = await response.json();
+      const data = await response.json();
       setImageData(data);
     } catch (error) {
       toast.error("Internal server error");
@@ -102,41 +94,44 @@ export default function ContextApi(props) {
     }
   };
 
-  // Creating top loading bar
   const [progress, setProgress] = useState(0);
 
-  // Calling API functions
   useEffect(() => {
     all_images();
     favorite_images();
     getUser();
   }, []);
 
-  // Socket code here    
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(() => {
     if (userInfo && userInfo._id) {
       const newSocket = io(HOST, {
-        query: { userId: userInfo._id }
+        query: { userId: userInfo._id },
+        transports: ['websocket'],
+        upgrade: false
       });
       setSocket(newSocket);
+
+      newSocket.on("connect_error", (error) => {
+        console.error("Connection Error:", error);
+        toast.error("Connection error");
+      });
 
       newSocket.on("getOnlineUsers", (users) => {
         setOnlineUsers(users);
       });
 
-
       return () => {
         newSocket.close();
-        setSocket(null)
+        setSocket(null);
       };
     }
   }, [userInfo]);
 
   return (
-    <shopContext.Provider value={{ handle_toggle, isOpen, setIsOpen, getUser, userInfo, allUsers, imageData, all_images, setImageData, formatDate, favorite_images, alert, progress, setProgress, HOST, getAllUsers, socket, onlineUsers, loading }}>
+    <shopContext.Provider value={{ handle_toggle, isOpen, setIsOpen, getUser, userInfo, allUsers, imageData, all_images, setImageData, formatDate, favorite_images, progress, setProgress, HOST, getAllUsers, socket, onlineUsers, loading }}>
       {props.children}
     </shopContext.Provider>
   );
