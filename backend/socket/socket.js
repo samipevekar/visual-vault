@@ -1,15 +1,19 @@
-const { Server } = require("socket.io");
+// const { Server } = require("socket.io");
 const http = require("http");
 const express = require("express");
 const app = express();
 
 const server = http.createServer(app);
-const io = new Server(server, {
+const io = require("socket.io")(server, {
   cors: {
-    origin: ["https://visual-vault-app.vercel.app"],
-    methods: ["GET", "POST"]
+    origin: ["https://visual-vault-app.vercel.app","http://localhost:5173"],
+    methods: ["GET", "POST"],
+    credentials:true
   }
+  
 });
+ 
+
 
 const userSocketMap = {}; // {userId: socketId}
 
