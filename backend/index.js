@@ -1,9 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-const port = process.env.PORT || 4000;
+const cookieParser = require("cookie-parser");
 const connectMongo = require("./db/db");
 const { app, server } = require("./socket/socket");
-const cookieParser = require("cookie-parser");
+
+const port = process.env.PORT || 4000;
 
 app.use(
   cors({
@@ -19,7 +20,6 @@ app.use(cookieParser());
 connectMongo();
 
 // Available routes
-
 app.get("/", (req, res) => {
   res.send("sami is here");
 });
