@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Navbar from './components/Navbar/Navbar'
-import {BrowserRouter as Router,Routes,Route } from "react-router-dom"
+import {Routes,Route } from "react-router-dom"
 import Signup from './pages/Signup/Signup'
 import Home from './pages/HomePage/Home'
 import Footer from './components/Footer/Footer'
@@ -8,6 +8,9 @@ import shopContext from './Context/ShopContext'
 import LoadingBar from 'react-top-loading-bar'
 import BackDrop from './components/BackDrop/BackDrop'
 import { Toaster } from 'react-hot-toast';
+import ImageSkeleton from './components/skeletons/ImageSkeleton'
+import {ErrorBoundary} from "react-error-boundary"
+import ErrorComponent from './components/ErrorBoundary/ErrorBoundary'
 
 
 export default function App() {
@@ -16,7 +19,8 @@ export default function App() {
   const {progress,isOpen} = context 
 
   return (
-    <Router>
+    <ErrorBoundary fallback={<ErrorComponent/>}>
+    
       <Toaster/>
       <LoadingBar height={2.5} color='#f11946' progress={progress}/> 
       <Navbar/>
@@ -26,6 +30,8 @@ export default function App() {
         <Route exact path='/signup' element={<Signup/>}></Route>
       </Routes> 
       <Footer/>
-    </Router>
+      <ImageSkeleton/>
+    
+    </ErrorBoundary>
   )
 }

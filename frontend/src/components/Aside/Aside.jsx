@@ -17,12 +17,12 @@ export default function Aside() {
 
   const isLoggedIn = localStorage.getItem("auth-token");     // Checks if user logged in
   
-  const handleMenuItemClick = () => {
-    setProgress(30); // Start the loading process
-    setTimeout(() => {
-      setProgress(100); // Finish the loading process after a delay
-    }, 300); // Adjust the delay as needed
-  };
+  // const handleMenuItemClick = () => {
+  //   setProgress(30); // Start the loading process
+  //   setTimeout(() => {
+  //     setProgress(100); // Finish the loading process after a delay
+  //   }, 300); // Adjust the delay as needed
+  // };
 
   
   return (
@@ -30,38 +30,38 @@ export default function Aside() {
         {isLoggedIn &&  <Sidebar id='sidebar' className={!isOpen ? "bg-body-tertiary sidebar" : "sidebar  bg-body-tertiary showSidebar"}>      
         
             <Menu id='menu'>              
-                <MenuItem className='menu_item'  component={<Link to={"/"} onClick={handleMenuItemClick}></Link>}>
+                <MenuItem className='menu_item'  component={<Link to={"/"} ></Link>}>
                   <div className="icons" > <img src={home_icon} className='sidebar_icons'/>
                     <span>Home</span>
                   </div>
                 </MenuItem>
                 
-                <MenuItem className='menu_item' component={<Link to={"/addimage"} onClick={handleMenuItemClick}></Link>}>
+                <MenuItem className='menu_item' component={<Link to={"/addimage"} ></Link>}>
                   <div className="icons"> <img src={addimage_icon} className='sidebar_icons'/>
                     <span>Add Image</span>
                   </div>
                 </MenuItem>
-                <MenuItem className='menu_item' component={<Link to={"/collections"} onClick={handleMenuItemClick}></Link>}>
+                <MenuItem className='menu_item' component={<Link to={"/collections"} ></Link>}>
                   <div className="icons"> <img src={collection_icon} className='sidebar_icons'/>
                     <span>Collection</span>
                   </div>
                 </MenuItem>
-                <MenuItem className='menu_item' component={<Link to={"/favorites"} onClick={handleMenuItemClick}></Link>}>
+                <MenuItem className='menu_item' component={<Link to={"/favorites"} ></Link>}>
                   <div  className="icons"> <img src={favorite_icon} className='sidebar_icons'/>
                     <span>Favorites</span>
                   </div>
                 </MenuItem>
-                <MenuItem className='menu_item' component={<Link to={"/chats"} onClick={handleMenuItemClick}></Link>}>
+                <MenuItem className='menu_item' component={<Link to={"/chats"} ></Link>}>
                   <div  className="icons"> <img src={message_icon} className='sidebar_icons'/>
                     <span>Messages</span>
                   </div>
                 </MenuItem>
-                <MenuItem className='menu_item' component={<Link to={"/displaysearch"} onClick={handleMenuItemClick}></Link>}>
+                <MenuItem className='menu_item' component={<Link to={"/displaysearch"} ></Link>}>
                   <div  className="icons"> <img src={search_icon} className='sidebar_icons'/>
                     <span>Search Image</span>
                   </div>
                 </MenuItem>
-                <MenuItem className='menu_item' component={<Link to={"/about"} onClick={handleMenuItemClick}></Link>}>
+                <MenuItem className='menu_item' component={<Link to={"/about"} ></Link>}>
                   <div className="icons"> <img src={about_icon} className='sidebar_icons'/>
                     <span>About</span>
                   </div>
