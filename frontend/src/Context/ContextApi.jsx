@@ -19,6 +19,7 @@ export default function ContextApi(props) {
     return `${day} ${month} ${year}`;
   }
 
+
   const [userInfo, setUserInfo] = useState({});
   const getUser = async () => {
     try {
@@ -59,6 +60,7 @@ export default function ContextApi(props) {
   const all_images = async () => {
     try {
       setProgress(30);
+      setLoading(true)
       const response = await fetch(`${HOST}/api/image/getallimages`, {
         method: "GET",
         headers: {
@@ -72,12 +74,14 @@ export default function ContextApi(props) {
       toast.error("Internal server error");
     } finally {
       setProgress(100);
+      setLoading(false)
     }
   };
 
   const favorite_images = async () => {
     try {
       setProgress(30);
+      setLoading(true)
       const response = await fetch(`${HOST}/api/image/getfavoriteimage`, {
         method: "GET",
         headers: {
@@ -91,6 +95,7 @@ export default function ContextApi(props) {
       toast.error("Internal server error");
     } finally {
       setProgress(100);
+      setLoading(false)
     }
   };
 
@@ -110,11 +115,10 @@ export default function ContextApi(props) {
       const newSocket = io(HOST, {
         query: { userId: userInfo._id },
         transports: ['websocket', 'polling'],
-        reconnection: true,
-        reconnectionDelay: 1000,
-        reconnectionDelayMax: 5000,
-        path: '/socket',
-        reconnectionAttempts: 5,
+      });
+
+      newSocket.on('connect', () => {
+        console.log('WebSocket connected');
       });
 
       newSocket.on('error', (error) => {
@@ -126,11 +130,19 @@ export default function ContextApi(props) {
         toast.error("Connection error");
       });
 
-      newSocket.on("getOnlineUsers", (users) => {
-        setOnlineUsers(users);
+      newSocket.on('disconnect', (reason) => {
+        console.log('WebSocket disconnected:', reason);
+        if (reason === 'io server disconnect') {
+          // The disconnection was initiated by the server, you need to reconnect manually
+          newSocket.connect();
+        }
       });
 
       setSocket(newSocket);
+
+      newSocket.on("getOnlineUsers", (users) => {
+        setOnlineUsers(users);
+      });
 
       return () => {
         newSocket.close();

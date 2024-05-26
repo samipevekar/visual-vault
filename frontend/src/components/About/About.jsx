@@ -2,6 +2,7 @@ import React from 'react'
 import './About.css'
 
 export default function About() {
+  let obj = {name: "sami"}
   return (
     <div className="container my-5 aboutContainer">
     <div className="accordion" id="accordionExample">
@@ -90,6 +91,7 @@ export default function About() {
         </div>
       </div>
     </div>
+    <div>{obj}</div>
     </div>
   )
 }

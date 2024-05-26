@@ -51,7 +51,7 @@ export default function DisplaySearch() {
       <form onSubmit={handleSubmit}>
         <div className='searchBar'>
           <input className="form-control me-2" required onChange={handleOnChange} value={searchValue} type="search" placeholder="yyyy-mm-dd" aria-label="Search"/>
-          <button className="btn btn-danger searchButton" type="submit" ><img src={search_icon} style={{width:"30px"}} alt="" /></button>
+          <button className="p-1.5 rounded searchButton" type="submit" ><img src={search_icon} className='w-6 p-0 ' alt="" /></button>
         </div>
       </form>
 
