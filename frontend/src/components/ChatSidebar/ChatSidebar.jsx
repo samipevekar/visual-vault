@@ -5,7 +5,7 @@ import './ChatSidebar.css'
 
 export default function ChatSidebar() {
   return (
-    <div className='h-[550px] bg-slate-50 max-w-[400px] min-w-[250px]   p-4 flex flex-col chat-sidebar '>
+    <div className='h-[550px]  max-w-[400px] min-w-[250px]   p-4 flex flex-col chat-sidebar '>
       <SearchInput/>
       <Conversations/> 
     </div>
