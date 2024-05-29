@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Navbar from './components/Navbar/Navbar'
-import {Routes,Route } from "react-router-dom"
+import {Routes,Route, Navigate } from "react-router-dom"
 import Signup from './pages/Signup/Signup'
 import Home from './pages/HomePage/Home'
 import Footer from './components/Footer/Footer'
@@ -27,8 +27,11 @@ export default function App() {
       
       <Home/>
       <Routes>
-        <Route exact path='/signup' element={<Signup/>}></Route>
+        <Route path='/signup' element={<Signup/>}></Route>
       </Routes> 
+      <Routes>
+        <Route path='*' element={<Navigate  to={"/"} />}></Route>
+      </Routes>
       <Footer/>
     </ErrorBoundary>
   )
