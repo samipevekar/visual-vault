@@ -9,7 +9,8 @@ const os = require('os');
 
 // Creating image storage
 
-const uploadDirectory = os.tmpdir();
+// const uploadDirectory = os.tmpdir();
+const uploadDirectory = "./upload/images";
 
 const storage = multer.diskStorage({
     destination: uploadDirectory,
@@ -22,7 +23,7 @@ const upload = multer({ storage: storage });
 
 
 // Creating Upload endpoint for images
-app.use("/images", express.static(uploadDirectory));
+app.use("/images", express.static("upload/images"));
 
 
 app.post("/upload", fetchuser, upload.single('post'), (req, res) => {
