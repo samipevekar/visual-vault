@@ -4,8 +4,8 @@ import toast from "react-hot-toast";
 import io from "socket.io-client";
 
 export default function ContextApi(props) {
-  // const HOST = "https://visual-vault-backend.onrender.com";
-  const HOST = "http://localhost:4000";
+  const HOST = "https://visual-vault-backend.onrender.com";
+  // const HOST = "http://localhost:4000";
 
   const [isOpen, setIsOpen] = useState(false);
   const handle_toggle = () => {
