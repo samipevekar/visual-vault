@@ -21,7 +21,7 @@ export default function App() {
     <ErrorBoundary fallback={<ErrorComponent/>}>
     
       <Toaster/>
-      <LoadingBar height={2.5} color='#f11946' progress={progress}/> 
+      <LoadingBar height={3} color='#f11946' progress={progress}/> 
       <Navbar/>
       {isOpen===true && <BackDrop/>}
       
@@ -29,9 +29,6 @@ export default function App() {
       <Routes>
         <Route path='/signup' element={<Signup/>}></Route>
       </Routes> 
-      <Routes>
-        <Route path='*' element={<Navigate  to={"/"} />}></Route>
-      </Routes>
       <Footer/>
     </ErrorBoundary>
   )
