@@ -9,7 +9,7 @@ export default function Messages() {
 
   const {messages,setMessages,selectedConversation} = useConversation()
   const [loading,setLoading] = useState(false)
-  const {HOST} = useContext(shopContext)
+  const {getMessages} = useContext(shopContext)
 
   const messagesContainerRef = useRef(null);
 
@@ -19,19 +19,6 @@ export default function Messages() {
     messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
   };
   
-
-  const getMessages = async()=>{
-    setLoading(true)
-    const response = await fetch(`${HOST}/api/messages/${selectedConversation._id}`,{
-      method:"GET",
-      headers:{
-        "auth-token":localStorage.getItem("auth-token")
-      }
-    })
-    const data = await response.json()
-    setMessages(data)
-    setLoading(false)
-  }
 
   useEffect(()=>{
     if(selectedConversation?._id){

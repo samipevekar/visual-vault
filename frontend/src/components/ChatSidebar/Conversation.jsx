@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import useConversation from '../../zustand/userConversation'
 import shopContext from '../../Context/ShopContext'
-import user1 from '../assets/user1.png'
+import user2 from '../assets/user2.png'
 
 export default function Conversation({conversation,lastIdx}) {
 
@@ -22,7 +22,7 @@ export default function Conversation({conversation,lastIdx}) {
         <div className={`avatar ${isOnline ? 'online':''} `}>
             <div className="w-12 rounded-full">
                 <img src={conversation.profilePic} onError={(e) => {
-                e.target.src = user1;
+                e.target.src = user2;
             }} />
             </div>
         </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import shopContext from "./ShopContext";
 import toast from "react-hot-toast";
 import io from "socket.io-client";
+import useConversation from "../zustand/userConversation";
 
 export default function ContextApi(props) {
   const HOST = "https://visual-vault-backend.onrender.com";
@@ -105,6 +106,7 @@ export default function ContextApi(props) {
     all_images();
     favorite_images();
     getUser();
+    getMessages()
   }, []);
 
   const [socket, setSocket] = useState(null);
@@ -151,8 +153,29 @@ export default function ContextApi(props) {
     }
   }, [userInfo]);
 
+
+  // api to get messages
+
+  const {setMessages,selectedConversation} = useConversation()
+
+  const getMessages = async()=>{
+    setLoading(true)
+    const response = await fetch(`${HOST}/api/messages/${selectedConversation._id}`,{
+      method:"GET",
+      headers:{
+        "auth-token":localStorage.getItem("auth-token")
+      }
+    })
+    const data = await response.json()
+    setMessages(data)
+    setLoading(false)
+  }
+
+  
+  
+
   return (
-    <shopContext.Provider value={{ handle_toggle, isOpen, setIsOpen, getUser, userInfo, allUsers, imageData, all_images, setImageData, formatDate, favorite_images, progress, setProgress, HOST, getAllUsers, socket, onlineUsers, loading }}>
+    <shopContext.Provider value={{ handle_toggle, isOpen, setIsOpen, getUser, userInfo, allUsers, imageData, all_images, setImageData, formatDate, favorite_images, progress, setProgress, HOST, getAllUsers, socket, onlineUsers, loading,getMessages }}>
       {props.children}
     </shopContext.Provider>
   );
