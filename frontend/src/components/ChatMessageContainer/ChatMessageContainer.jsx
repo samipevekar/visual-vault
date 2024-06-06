@@ -6,6 +6,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import useConversation from '../../zustand/userConversation'
 import './ChatMessageContainer.css'
 import shopContext from '../../Context/ShopContext';
+import user2 from '../assets/user2.png'
 
 export default function ChatMessageContainer() {
 
@@ -21,7 +22,7 @@ export default function ChatMessageContainer() {
             <div className={`ml-4  avatar w-8 h-8 ${isOnline ? 'online':''} `}>
             <div className="w-12 rounded-full">
                 <img src={selectedConversation.profilePic}  onError={(e) => {
-                e.target.src = user1;
+                e.target.src = user2;
             }} />
             </div>
         </div>
