@@ -9,7 +9,7 @@
 @media (max-width:900px){
     .chat-sidebar{
         position: absolute !important;
-        width: 100% !important;
+        width: 400px !important;
     }
 }
 @media (min-width:900px){

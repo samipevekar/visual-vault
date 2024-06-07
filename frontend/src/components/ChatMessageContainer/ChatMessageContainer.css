@@ -1,6 +1,6 @@
 @media (max-width:900px){
     .messageContainer{
-        width: 100%;
+        width: 400px;
         background-color:white;
     }
     .no-chat-selected{
