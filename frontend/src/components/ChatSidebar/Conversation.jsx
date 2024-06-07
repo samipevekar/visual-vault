@@ -5,7 +5,7 @@ import user2 from '../assets/user2.png'
 
 export default function Conversation({conversation,lastIdx}) {
 
-    const {selectedConversation,setSelectedConversation} = useConversation()
+    const {selectedConversation,setSelectedConversation,messages} = useConversation()
 
     const isSelected = selectedConversation?._id === conversation._id
 
