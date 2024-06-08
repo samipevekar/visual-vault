@@ -113,7 +113,7 @@ export default function Message({ messages }) {
         </div>
       </div>
 
-      <div className={`chat-bubble break-words ${fromMe ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'}`}>
+      <div onContextMenu={(e)=>e.preventDefault()} className={`chat-bubble break-words ${fromMe ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'}`}>
         {messages.message}
       </div>
 

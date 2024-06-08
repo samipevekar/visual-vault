@@ -6,8 +6,8 @@ import useConversation from "../zustand/userConversation";
 
 export default function ContextApi(props) {
 
-  const HOST = "https://visual-vault-backend.onrender.com";
-  // const HOST = "http://localhost:4000";
+  // const HOST = "https://visual-vault-backend.onrender.com";
+  const HOST = "http://localhost:4000";
 
   const [isOpen, setIsOpen] = useState(false);     // to handle user info menu
   const handle_toggle = () => setIsOpen(!isOpen);  
@@ -18,6 +18,8 @@ export default function ContextApi(props) {
     const [day, month, year] = formattedDate.split(' ');
     return `${day} ${month} ${year}`;
   }
+
+
 
 
   // api to get login user info
@@ -34,6 +36,7 @@ export default function ContextApi(props) {
       toast.error("Internal server error");
     }
   };
+
 
 
   // api to get all users
@@ -155,16 +158,18 @@ export default function ContextApi(props) {
   const { setMessages, selectedConversation } = useConversation();
 
   const getMessages = async () => {
-    setLoading(true);
+    if(selectedConversation){
+      setLoading(true);
     const response = await fetch(`${HOST}/api/messages/${selectedConversation._id}`, {
       method: "GET",
-      headers: { "auth-token": localStorage.getItem("auth-token") }
-    });
-    const data = await response.json();
-    setMessages(data);
-    setLoading(false);
-  };
+    headers: { "auth-token": localStorage.getItem("auth-token") }
+  });
+const data = await response.json();
+setMessages(data);
+setLoading(false);
+};
 
+}
   return (
     <shopContext.Provider value={{
       handle_toggle,
