@@ -24,12 +24,11 @@ export default function App() {
       <LoadingBar height={3} color='#f11946' progress={progress}/> 
       <Navbar/>
       {isOpen===true && <BackDrop/>}
-      
       <Home/>
       <Routes>
         <Route path='/signup' element={<Signup/>}></Route>
-      </Routes> 
-      <Footer/>
+        <Route path='*' element={< Home/>} />
+      </Routes>
     </ErrorBoundary>
   )
 }

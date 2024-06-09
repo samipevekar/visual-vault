@@ -11,23 +11,6 @@ import './Navbar.css'
 export default function Navbar() {
 
 
-  const contextMenuRef = useRef(null);   
-  
-  // To handle contextMenu outside click
-  useEffect(() => {                                      
-    function handleClickOutside(event) {
-      if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [contextMenuRef]);
-
-
   
   // handling sidebar menu click
   const context = useContext(shopContext)
@@ -74,7 +57,7 @@ export default function Navbar() {
 
 
       {/* user information  */}
-    <div ref={contextMenuRef} className="userLogo" onClick={handle_dropdown}>
+    <div  className="userLogo" onClick={handle_dropdown}>
       <img src={userInfo.profilePic} onError={(e) => {
                 e.target.src = user1;
             }}
