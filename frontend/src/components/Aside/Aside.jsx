@@ -30,38 +30,38 @@ export default function Aside() {
         {isLoggedIn &&  <Sidebar id='sidebar' className={!isOpen ? "bg-body-tertiary sidebar" : "sidebar  bg-body-tertiary showSidebar"}>      
         
             <Menu id='menu'>              
-                <MenuItem className='menu_item'  component={<Link to="/" ></Link>}>
+                <MenuItem className='menu_item' title='Home'  component={<Link to="/" ></Link>}>
                   <div className="icons" > <img src={home_icon} className='sidebar_icons'/>
                     <span>Home</span>
                   </div>
                 </MenuItem>
                 
-                <MenuItem className='menu_item' component={<Link to="/addimage" ></Link>}>
+                <MenuItem className='menu_item' title='Add Image' component={<Link to="/addimage" ></Link>}>
                   <div className="icons"> <img src={addimage_icon} className='sidebar_icons'/>
                     <span>Add Image</span>
                   </div>
                 </MenuItem>
-                <MenuItem className='menu_item' component={<Link to="/collections" ></Link>}>
+                <MenuItem className='menu_item' title='Collections' component={<Link to="/collections" ></Link>}>
                   <div className="icons"> <img src={collection_icon} className='sidebar_icons'/>
-                    <span>Collection</span>
+                    <span>Collections</span>
                   </div>
                 </MenuItem>
-                <MenuItem className='menu_item' component={<Link to="/favorites" ></Link>}>
+                <MenuItem className='menu_item' title='Favorites'  component={<Link to="/favorites" ></Link>}>
                   <div  className="icons"> <img src={favorite_icon} className='sidebar_icons'/>
                     <span>Favorites</span>
                   </div>
                 </MenuItem>
-                <MenuItem className='menu_item' component={<Link to="/chats" ></Link>}>
+                <MenuItem className='menu_item' title='Messages' component={<Link to="/chats" ></Link>}>
                   <div  className="icons"> <img src={message_icon} className='sidebar_icons'/>
                     <span>Messages</span>
                   </div>
                 </MenuItem>
-                <MenuItem className='menu_item' component={<Link to="/displaysearch" ></Link>}>
+                <MenuItem className='menu_item' title='Search Image' component={<Link to="/displaysearch" ></Link>}>
                   <div  className="icons"> <img src={search_icon} className='sidebar_icons'/>
                     <span>Search Image</span>
                   </div>
                 </MenuItem>
-                <MenuItem className='menu_item' component={<Link to="/about" ></Link>}>
+                <MenuItem className='menu_item' title='About' component={<Link to="/about" ></Link>}>
                   <div className="icons"> <img src={about_icon} className='sidebar_icons'/>
                     <span>About</span>
                   </div>
