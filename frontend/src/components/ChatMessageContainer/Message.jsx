@@ -21,7 +21,6 @@ export default function Message({ messages }) {
   const profilePic = fromMe ? userInfo?.profilePic : selectedConversation?.profilePic;
   const formattedTime = extractTime(messages.createdAt);
 
-
   // useEffect() to fetch user info
   useEffect(() => {
     getUser();
@@ -41,7 +40,6 @@ export default function Message({ messages }) {
     };
   }, [contextMenuRef]);
 
-
   // useEffect() to listen delete messages
   useEffect(() => {
     if (socket) {
@@ -49,11 +47,12 @@ export default function Message({ messages }) {
         getMessages();
       });
 
+
       return () => {
         socket.off('deleteMessage');
       };
     }
-  }, [socket, getMessages]);
+  }, [socket, getMessages, messages]);
 
   // function to copy messages
   const handleCopyClick = () => {
@@ -65,7 +64,7 @@ export default function Message({ messages }) {
     setIsOpen(false);
   };
 
-  //function to handle delete from everyone api
+  // function to handle delete from everyone api
   const handleDeleteClick = async (id) => {
     try {
       const response = await fetch(`${HOST}/api/messages/deletemessages/${id}`, {
@@ -93,17 +92,18 @@ export default function Message({ messages }) {
         }
       });
       const data = await response.json();
-      if (response.ok) {
-        // Optionally, remove the message from the UI immediately
-        getMessages(); // Re-fetch messages to update the UI
-      } else {
-        console.error('Failed to delete message:', data);
-      }
     } catch (err) {
       console.error('Error:', err);
     }
     setIsOpen(false);
   };
+
+  // Emit seen event for incoming messages
+  useEffect(() => {
+    if (!fromMe && socket) {
+      socket.emit('messageSeen', { messageId: messages._id, userId: userInfo._id });
+    }
+  }, []);
 
   return (
     <div className={`chat ${fromMe ? 'chat-end' : 'chat-start'} relative group`}>
@@ -119,6 +119,7 @@ export default function Message({ messages }) {
 
       <div className='text-[12px] chat-footer opacity-50 text-black flex gap-1 items-center pb-2'>
         {formattedTime}
+        {fromMe && messages.seenBy?.includes(selectedConversation?._id) && <span>(Seen)</span>}
       </div>
 
       <span

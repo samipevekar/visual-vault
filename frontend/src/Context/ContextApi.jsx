@@ -6,7 +6,7 @@ import useConversation from "../zustand/userConversation";
 
 export default function ContextApi(props) {
 
-  const HOST = "https://visual-vault-backend.onrender.com";
+  const HOST = "https://visual-vault.onrender.com"
   // const HOST = "http://localhost:4000";
 
   const [isOpen, setIsOpen] = useState(false);     // to handle user info menu
@@ -18,9 +18,6 @@ export default function ContextApi(props) {
     const [day, month, year] = formattedDate.split(' ');
     return `${day} ${month} ${year}`;
   }
-
-
-
 
   // api to get login user info
   const [userInfo, setUserInfo] = useState({});
@@ -36,8 +33,6 @@ export default function ContextApi(props) {
       toast.error("Internal server error");
     }
   };
-
-
 
   // api to get all users
   const [allUsers, setAllUsers] = useState([]);
@@ -57,7 +52,6 @@ export default function ContextApi(props) {
       setLoading(false);
     }
   };
-
 
   // api to get all images
   const [imageData, setImageData] = useState([]);
@@ -118,6 +112,9 @@ export default function ContextApi(props) {
       const newSocket = io(HOST, {
         query: { userId: userInfo._id },
         transports: ['websocket', 'polling'],
+        reconnectionAttempts: 5, // Number of reconnection attempts
+        reconnectionDelay: 2000, // Time between reconnections (ms)
+        reconnectionDelayMax: 5000, // Max time between reconnections (ms)
       });
 
       newSocket.on('connect', () => {
@@ -153,23 +150,43 @@ export default function ContextApi(props) {
     }
   }, [userInfo]);
 
-
   // api to get all messages
   const { setMessages, selectedConversation } = useConversation();
 
   const getMessages = async () => {
     if(selectedConversation){
       setLoading(true);
-    const response = await fetch(`${HOST}/api/messages/${selectedConversation._id}`, {
-      method: "GET",
-    headers: { "auth-token": localStorage.getItem("auth-token") }
-  });
-const data = await response.json();
-setMessages(data);
-setLoading(false);
-};
+      const response = await fetch(`${HOST}/api/messages/${selectedConversation._id}`, {
+        method: "GET",
+        headers: { "auth-token": localStorage.getItem("auth-token") }
+      });
+      const data = await response.json();
+      setMessages(data);
+      setLoading(false);
+    }
+  }
 
-}
+  // Mark messages as seen
+  const markMessagesAsSeen = async (conversationId) => {
+    try {
+      await fetch(`${HOST}/api/messages/markseen/${conversationId}`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': localStorage.getItem("auth-token")
+        }
+      });
+    } catch (error) {
+      console.error("Failed to mark messages as seen:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedConversation) {
+      markMessagesAsSeen(selectedConversation?._id);
+    }
+  }, [selectedConversation]);
+
   return (
     <shopContext.Provider value={{
       handle_toggle,
@@ -190,7 +207,8 @@ setLoading(false);
       socket,
       onlineUsers,
       loading,
-      getMessages
+      getMessages,
+      markMessagesAsSeen
     }}>
       {props.children}
     </shopContext.Provider>
