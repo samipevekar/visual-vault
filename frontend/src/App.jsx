@@ -27,7 +27,6 @@ export default function App() {
       <Home/>
       <Routes>
         <Route path='/signup' element={<Signup/>}></Route>
-        <Route path='*' element={< Home/>} />
       </Routes>
     </ErrorBoundary>
   )
