@@ -13,7 +13,7 @@ export default function Addimage() {
 
   // Using alert component form shopContext
   const context = useContext(shopContext)
-  const {showAlert,setProgress,HOST} = context
+  const {setProgress,HOST} = context
 
 
   // Sets selected image to image state
@@ -68,7 +68,7 @@ export default function Addimage() {
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error("An error occurred while uploading image","danger");
+      toast.error("An error occurred while uploading image");
       
     }       
     setProgress(100)

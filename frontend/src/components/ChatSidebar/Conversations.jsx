@@ -1,13 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect} from 'react';
 import Conversation from './Conversation';
 import shopContext from '../../Context/ShopContext';
 import ConversationSkeleton from '../skeletons/ConversationSkeleton';
+import useConversation from '../../zustand/userConversation';
 
 export default function Conversations() {
-  const { allUsers, getAllUsers, loading, onlineUsers } = useContext(shopContext);
+  const { allUsers, getAllUsers, loading, onlineUsers } = useContext(shopContext)
+  const {selectedConversation} = useConversation()
 
   useEffect(() => {
-    getAllUsers();
+      getAllUsers();
   }, []);
 
   // Function to sort users based on online status
@@ -31,7 +33,7 @@ export default function Conversations() {
         />
       ))}
 
-      {loading && [...Array(5)].map((_, idx) => <ConversationSkeleton key={idx} />)}
+      {/* {loading && [...Array(5)].map((_, idx) => <ConversationSkeleton key={idx} />)} */}
     </div>
   );
 }

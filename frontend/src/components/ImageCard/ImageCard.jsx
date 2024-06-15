@@ -46,7 +46,7 @@ const ImageCard = (props) => {
       }
       
     } catch (error) {
-      toast.error("Internal server error")
+      console.error("Internal server error")
     }
 
   };
@@ -72,7 +72,7 @@ const ImageCard = (props) => {
       }
       
     } catch (error) {
-      toast.error("Internal server error")
+      console.error("Internal server error")
     }
   }
 

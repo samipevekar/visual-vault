@@ -52,7 +52,7 @@ export default function Message({ messages }) {
         socket.off('deleteMessage');
       };
     }
-  }, [socket, getMessages, messages]);
+  }, [socket, messages]);
 
   // function to copy messages
   const handleCopyClick = () => {
