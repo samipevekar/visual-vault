@@ -77,29 +77,28 @@ app.get("/:id", middleware, async (req, res) => {
 });
 
 
-// Endpoint to get latest message
+// Endpoint to get the latest message
 app.get("/latestmessage/:id", middleware, async (req, res) => {
   try {
     const { id: userToChatId } = req.params;
     const senderId = req.user.id;
 
     const conversation = await Conversation.findOne({
-      $and: [
-        { participants: senderId },
-        { participants: userToChatId }
-      ]
+      participants: { $all: [senderId, userToChatId] }
     }).populate({
       path: "messages",
       match: { deletedBy: { $ne: senderId } },
       options: { sort: { createdAt: -1 }, limit: 1 } // Fetch only the latest message
     });
 
-    if (!conversation) return res.status(200).json({});
+    if (!conversation || conversation.messages.length === 0) {
+      return res.status(200).json(null); // Return null if no conversation or no messages
+    }
 
     const latestMessage = conversation.messages[0];
     res.status(200).json(latestMessage);
   } catch (error) {
-    console.log("Error in getLatestMessage controller:", error.message);
+    console.error("Error in getLatestMessage controller:", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -191,24 +190,3 @@ app.post("/markseen/:conversationId", middleware, async (req, res) => {
 
 
 module.exports = app;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

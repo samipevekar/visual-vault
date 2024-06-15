@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Messages from './Messages'
 import MessageInput from './MessageInput'
 import { TiMessages } from 'react-icons/ti'
@@ -13,6 +13,11 @@ export default function ChatMessageContainer() {
   const {selectedConversation,setSelectedConversation} = useConversation();
   const {onlineUsers} = useContext(shopContext)
   const isOnline = onlineUsers.includes(selectedConversation?._id)
+
+  useEffect(()=>{
+    // cleanup function (unmount)
+    return () => setSelectedConversation(null)
+  },[setSelectedConversation])
   
   return (
     <div className={`min-w-[400px] max-w-[650px]  messageContainer ${selectedConversation ? 'z-10' : ''}`}>

@@ -6,20 +6,19 @@ import useConversation from "../zustand/userConversation";
 
 export default function ContextApi(props) {
 
-  const HOST = "https://visual-vault.onrender.com"
-  // const HOST = "http://localhost:4000";
+  // const HOST = "https://visual-vault-backend.onrender.com"
+  const HOST = "http://localhost:4000";
 
-  const [isOpen, setIsOpen] = useState(false);     // to handle user info menu
-  const handle_toggle = () => setIsOpen(!isOpen);  
+  const [isOpen, setIsOpen] = useState(false);
+  const handle_toggle = () => setIsOpen(!isOpen);
 
-  function formatDate(dateString) {                 // convert date into given format
+  function formatDate(dateString) {
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
     const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
     const [day, month, year] = formattedDate.split(' ');
     return `${day} ${month} ${year}`;
   }
 
-  // api to get login user info
   const [userInfo, setUserInfo] = useState({});
   const getUser = async () => {
     try {
@@ -30,11 +29,10 @@ export default function ContextApi(props) {
       const data = await response.json();
       setUserInfo(data);
     } catch (error) {
-      toast.error("Internal server error");
+      console.error("Internal server error");
     }
   };
 
-  // api to get all users
   const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const getAllUsers = async () => {
@@ -47,13 +45,12 @@ export default function ContextApi(props) {
       const data = await response.json();
       setAllUsers(data);
     } catch (error) {
-      toast.error("Internal server error");
+      console.error("Internal server error");
     } finally {
       setLoading(false);
     }
   };
 
-  // api to get all images
   const [imageData, setImageData] = useState([]);
   const all_images = async () => {
     try {
@@ -67,14 +64,13 @@ export default function ContextApi(props) {
       const data = await response.json();
       setImageData(data);
     } catch (error) {
-      toast.error("Internal server error");
+      console.error("Internal server error");
     } finally {
       setProgress(100);
       setLoading(false);
     }
   };
 
-  // api to get favorite images
   const favorite_images = async () => {
     try {
       setProgress(30);
@@ -87,23 +83,21 @@ export default function ContextApi(props) {
       const data = await response.json();
       setImageData(data);
     } catch (error) {
-      toast.error("Internal server error");
+      console.error("Internal server error");
     } finally {
       setProgress(100);
       setLoading(false);
     }
   };
 
-  const [progress, setProgress] = useState(0);  // state to manage react top loading bar
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     all_images();
     favorite_images();
     getUser();
-    getMessages();
   }, []);
 
-  // socket code here
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
 
@@ -112,9 +106,6 @@ export default function ContextApi(props) {
       const newSocket = io(HOST, {
         query: { userId: userInfo._id },
         transports: ['websocket', 'polling'],
-        reconnectionAttempts: 5, // Number of reconnection attempts
-        reconnectionDelay: 2000, // Time between reconnections (ms)
-        reconnectionDelayMax: 5000, // Max time between reconnections (ms)
       });
 
       newSocket.on('connect', () => {
@@ -127,7 +118,7 @@ export default function ContextApi(props) {
 
       newSocket.on("connect_error", (error) => {
         console.error("Connection Error:", error);
-        toast.error("Connection error");
+        console.error("Connection error");
       });
 
       newSocket.on('disconnect', (reason) => {
@@ -137,11 +128,16 @@ export default function ContextApi(props) {
         }
       });
 
-      setSocket(newSocket);
-
       newSocket.on("getOnlineUsers", (users) => {
         setOnlineUsers(users);
       });
+
+      newSocket.on('newMessage', (message) => {
+        // Listen for new messages and update conversations accordingly
+        updateLatestMessage(message);
+      });
+
+      setSocket(newSocket);
 
       return () => {
         newSocket.close();
@@ -150,26 +146,30 @@ export default function ContextApi(props) {
     }
   }, [userInfo]);
 
-  // api to get all messages
-  const { setMessages, selectedConversation } = useConversation();
+  const { setMessages, selectedConversation, messages } = useConversation();
 
   const getMessages = async () => {
-    if(selectedConversation){
-      setLoading(true);
-      const response = await fetch(`${HOST}/api/messages/${selectedConversation._id}`, {
-        method: "GET",
-        headers: { "auth-token": localStorage.getItem("auth-token") }
-      });
-      const data = await response.json();
-      setMessages(data);
-      setLoading(false);
+        setLoading(true);
+        try {
+          const response = await fetch(`${HOST}/api/messages/${selectedConversation._id}`, {
+            method: "GET",
+            headers: { "auth-token": localStorage.getItem("auth-token") }
+          });
+          const data = await response.json();
+          setMessages(data);
+          setLoading(false);
+          
+        } catch (error) {
+          console.error("Internal server error")
+        }
     }
-  }
+    
 
-  // Mark messages as seen
-  const markMessagesAsSeen = async (conversationId) => {
+  
+
+  const markMessagesAsSeen = async () => {
     try {
-      await fetch(`${HOST}/api/messages/markseen/${conversationId}`, {
+      await fetch(`${HOST}/api/messages/markseen/${selectedConversation._id}`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -183,7 +183,8 @@ export default function ContextApi(props) {
 
   useEffect(() => {
     if (selectedConversation) {
-      markMessagesAsSeen(selectedConversation?._id);
+      markMessagesAsSeen();
+      getMessages();
     }
   }, [selectedConversation]);
 
@@ -206,8 +207,8 @@ export default function ContextApi(props) {
       getAllUsers,
       socket,
       onlineUsers,
-      loading,
       getMessages,
+      loading,
       markMessagesAsSeen
     }}>
       {props.children}

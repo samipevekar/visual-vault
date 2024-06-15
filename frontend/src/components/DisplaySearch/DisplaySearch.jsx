@@ -28,7 +28,7 @@ export default function DisplaySearch() {
       setSearchData(data);                                      // Set data to searchData state
 
     } catch (error) {
-      toast.error("Internal Server Error");
+      console.error("Internal Server Error");
     }
   };
   
