@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
+import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
 import './Aside.css';
 import home_icon from '../assets/home.png';
@@ -15,78 +15,59 @@ export default function Aside() {
   const context = useContext(shopContext);
   const { isOpen, setProgress } = context;
 
-  const isLoggedIn = localStorage.getItem("auth-token"); // Checks if user logged in
+  const isLoggedIn = localStorage.getItem("auth-token");     // Checks if user logged in
+  
+  // const handleMenuItemClick = () => {
+  //   setProgress(30); // Start the loading process
+  //   setTimeout(() => {
+  //     setProgress(100); // Finish the loading process after a delay
+  //   }, 300); // Adjust the delay as needed
+  // };
 
+  
   return (
-    <div>
-      {isLoggedIn && (
-        <Sidebar id='sidebar' className={!isOpen ? "bg-white sidebar" : "sidebar bg-body-tertiary showSidebar"}>
-          <Menu id='menu'>
-            <MenuItem className='menu_item' title='Home'>
-              <Link to="/">
-                <div className="icons">
-                  <img src={home_icon} className='sidebar_icons' alt="Home Icon" />
-                  <span>Home</span>
-                </div>
-              </Link>
-            </MenuItem>
-
-            <MenuItem className='menu_item' title='Add Image'>
-              <Link to="/addimage">
-                <div className="icons">
-                  <img src={addimage_icon} className='sidebar_icons' alt="Add Image Icon" />
-                  <span>Add Image</span>
-                </div>
-              </Link>
-            </MenuItem>
-
-            <MenuItem className='menu_item' title='Collections'>
-              <Link to="/collections">
-                <div className="icons">
-                  <img src={collection_icon} className='sidebar_icons' alt="Collections Icon" />
-                  <span>Collections</span>
-                </div>
-              </Link>
-            </MenuItem>
-
-            <MenuItem className='menu_item' title='Favorites'>
-              <Link to="/favorites">
-                <div className="icons">
-                  <img src={favorite_icon} className='sidebar_icons' alt="Favorites Icon" />
-                  <span>Favorites</span>
-                </div>
-              </Link>
-            </MenuItem>
-
-            <MenuItem className='menu_item' title='Messages'>
-              <Link to="/chats">
-                <div className="icons">
-                  <img src={message_icon} className='sidebar_icons' alt="Messages Icon" />
-                  <span>Messages</span>
-                </div>
-              </Link>
-            </MenuItem>
-
-            <MenuItem className='menu_item' title='Search Image'>
-              <Link to="/displaysearch">
-                <div className="icons">
-                  <img src={search_icon} className='sidebar_icons' alt="Search Image Icon" />
-                  <span>Search Image</span>
-                </div>
-              </Link>
-            </MenuItem>
-
-            <MenuItem className='menu_item' title='About'>
-              <Link to="/about">
-                <div className="icons">
-                  <img src={about_icon} className='sidebar_icons' alt="About Icon" />
-                  <span>About</span>
-                </div>
-              </Link>
-            </MenuItem>
-          </Menu>
-        </Sidebar>
-      )}
+    <div> 
+        {isLoggedIn &&  <Sidebar id='sidebar' className={!isOpen ? "bg-body-tertiary sidebar" : "sidebar  bg-body-tertiary showSidebar"}>      
+        
+            <Menu id='menu'>              
+                <MenuItem className='menu_item' title='Home'  component={<Link to="/" ></Link>}>
+                  <div className="icons" > <img src={home_icon} className='sidebar_icons'/>
+                    <span>Home</span>
+                  </div>
+                </MenuItem>
+                
+                <MenuItem className='menu_item' title='Add Image' component={<Link to="/addimage" ></Link>}>
+                  <div className="icons"> <img src={addimage_icon} className='sidebar_icons'/>
+                    <span>Add Image</span>
+                  </div>
+                </MenuItem>
+                <MenuItem className='menu_item' title='Collections' component={<Link to="/collections" ></Link>}>
+                  <div className="icons"> <img src={collection_icon} className='sidebar_icons'/>
+                    <span>Collections</span>
+                  </div>
+                </MenuItem>
+                <MenuItem className='menu_item' title='Favorites'  component={<Link to="/favorites" ></Link>}>
+                  <div  className="icons"> <img src={favorite_icon} className='sidebar_icons'/>
+                    <span>Favorites</span>
+                  </div>
+                </MenuItem>
+                <MenuItem className='menu_item' title='Messages' component={<Link to="/chats" ></Link>}>
+                  <div  className="icons"> <img src={message_icon} className='sidebar_icons'/>
+                    <span>Messages</span>
+                  </div>
+                </MenuItem>
+                <MenuItem className='menu_item' title='Search Image' component={<Link to="/displaysearch" ></Link>}>
+                  <div  className="icons"> <img src={search_icon} className='sidebar_icons'/>
+                    <span>Search Image</span>
+                  </div>
+                </MenuItem>
+                <MenuItem className='menu_item' title='About' component={<Link to="/about" ></Link>}>
+                  <div className="icons"> <img src={about_icon} className='sidebar_icons'/>
+                    <span>About</span>
+                  </div>
+                </MenuItem>
+            </Menu>
+        </Sidebar>}
     </div>
   );
 }
