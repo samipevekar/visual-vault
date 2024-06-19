@@ -6,8 +6,8 @@ import useListenMessage from '../../hooks/useListenMessage';
 import MessageSkeleton from '../skeletons/MessageSkeleton';
 
 export default function Messages() {
-  const { messages, setMessages, selectedConversation, loading } = useConversation();
-  const { getMessages, userInfo } = useContext(shopContext);
+  const { messages, setMessages, selectedConversation} = useConversation();
+  const { getMessages, userInfo,markMessagesAsSeen, msgLoading  } = useContext(shopContext);
   const messagesContainerRef = useRef(null);
 
   useListenMessage();
@@ -23,7 +23,7 @@ export default function Messages() {
     if (selectedConversation._id) {
       getMessages();
     }
-  }, [selectedConversation._id,getMessages]);
+  }, [selectedConversation._id,setMessages]);
 
   // Scroll to bottom when messages change
   useEffect(scrollToBottom, [messages]);
@@ -32,13 +32,13 @@ export default function Messages() {
     <div className='px-4 flex-1 overflow-auto h-[430px]' ref={messagesContainerRef}>
       {messages.map((message) => (
         <div key={message._id}>
-          <Message messages={message} />
+          <Message message={message} />
         </div>
       ))}
 
-      {loading && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
+      {msgLoading && [...Array(3)].map((_, idx) => <MessageSkeleton key={idx} />)}
 
-      {!loading && messages.length === 0 && (
+      {!msgLoading && messages.length === 0 && (
         <p className='text-center'>Send a message to start the conversation</p>
       )}
     </div>

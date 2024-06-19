@@ -14,7 +14,7 @@ export default function HomeContent() {
         <p className="home-paragraph fadeIn">Your go-to platform for storing and organizing your images.</p>
         <p className="home-paragraph fadeIn">With Visual Vault, you can securely store your images and access them anytime, anywhere.</p>
         {localStorage.getItem("auth-token")?<p className="home-paragraph home1-para fadeIn">Enjoy Your Own Gallery!</p>:<p className="home-paragraph home1-para fadeIn">Sign up now to get started!</p>}
-        {localStorage.getItem("auth-token")?<></>:<Link to={"/signup"} className="home-button fadeIn">Sign Up</Link>}
+        {localStorage.getItem("auth-token")?<></>:<Link to={"/signup"} className="home-button fadeIn">Continue</Link>}
     </div>
     </>
 

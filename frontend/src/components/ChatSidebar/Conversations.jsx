@@ -2,11 +2,9 @@ import React, { useContext, useEffect} from 'react';
 import Conversation from './Conversation';
 import shopContext from '../../Context/ShopContext';
 import ConversationSkeleton from '../skeletons/ConversationSkeleton';
-import useConversation from '../../zustand/userConversation';
 
 export default function Conversations() {
-  const { allUsers, getAllUsers, loading, onlineUsers } = useContext(shopContext)
-  const {selectedConversation} = useConversation()
+  const { allUsers, getAllUsers, userLoading, onlineUsers } = useContext(shopContext)
 
   useEffect(() => {
       getAllUsers();
@@ -33,7 +31,7 @@ export default function Conversations() {
         />
       ))}
 
-      {/* {loading && [...Array(5)].map((_, idx) => <ConversationSkeleton key={idx} />)} */}
+      {userLoading && [...Array(5)].map((_, idx) => <ConversationSkeleton key={idx} />)}
     </div>
   );
 }

@@ -32,7 +32,7 @@ export default function Conversation({ conversation, lastIdx }) {
 
     useEffect(() => {
         getLatestMessage();
-    }, [latestMessage]); // Re-fetch on messages or conversation change
+    }, [latestMessage, messages]); // Re-fetch on messages or conversation change
 
     const fromMe = latestMessage?.senderId === userInfo?._id;
     const isUnread = latestMessage && !latestMessage.seenBy?.includes(userInfo?._id);
