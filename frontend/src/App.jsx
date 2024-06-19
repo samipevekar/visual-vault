@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import Navbar from './components/Navbar/Navbar'
-import {Routes,Route, Navigate } from "react-router-dom"
+import {Routes,Route} from "react-router-dom"
 import Signup from './pages/Signup/Signup'
 import Home from './pages/HomePage/Home'
 import Footer from './components/Footer/Footer'
@@ -25,9 +25,9 @@ export default function App() {
       <Navbar/>
       {isOpen===true && <BackDrop/>}
       <Home/>
-      <Routes>
-        <Route path='/signup' element={<Signup/>}></Route>
-      </Routes>
+      {/* <Routes>
+       
+      </Routes> */}
     </ErrorBoundary>
   )
 }

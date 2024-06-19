@@ -1,38 +1,56 @@
-.home-container{
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400..800&display=swap');
+
+.home-container {
+    font-family: "Baloo Bhaijaan 2", sans-serif;
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 100px;
     height: 80vh;
     word-wrap: wrap;
     text-align: center;
     padding: 20px;
-
+    margin-top: 50px;
 }
-.home-logo{
-    width: 100px;
-    filter: drop-shadow(3px 5px 5px black);
+
+.home-logo {
+    width: 200px;
+    animation: home-scale 4s infinite both, fadeIn 1s forwards;
+    animation-delay: 0.2s, 0s;
+}
+
+@keyframes home-scale {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 .home-heading {
     color: transparent;
-    filter:drop-shadow( 3px 5px 2px black);
     background: radial-gradient(#dc3545, rgb(66, 66, 255));
     -webkit-background-clip: text;
     background-clip: text;
     font-weight: 700;
-    font-size: 50px;
+    font-size: 60px;
 }
-  
-.home-paragraph{
+
+.home-paragraph {
     font-size: 20px;
     line-height: 40px;
-    color: #dc3545
+    color: #dc3545;
 }
-.home1-para{
+
+.home1-para {
+    font-size: 24px;
     color: #0278ff;
 }
-.home-button{
+
+.home-button {
     border-radius: 5px;
     font-size: 18px;
     font-weight: bold;
@@ -41,8 +59,41 @@
     transition: all .5s;
     background-color: #dc354654;
     color: #dc3545;
+    margin-top: 20px;
 }
-.home-button:hover{    
+
+.home-button:hover {
     background-color: #dc3545;
     color: white;
+}
+
+.home-heading,
+.home-paragraph,
+.home-button{
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+.home-heading {
+    animation-delay: 0.5s;
+}
+
+.home-paragraph {
+    animation-delay: 1s;
+}
+
+.home-button {
+    animation-delay: 1.5s;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width:600px){
+  .home-container{
+    margin-top: 0;
+  }
 }

@@ -10,16 +10,16 @@ import dots_icon from '../assets/dots.png';
 import user1 from '../assets/user1.png';
 import user2 from '../assets/user2.png';
 
-export default function Message({ messages }) {
+export default function Message({ message }) {
   const [isOpen, setIsOpen] = useState(false);
   const contextMenuRef = useRef(null);
 
   const { getUser, userInfo, HOST, getMessages, socket } = useContext(shopContext);
-  const { selectedConversation } = useConversation();
+  const { selectedConversation, messages } = useConversation();
 
-  const fromMe = userInfo?._id === messages.senderId;
+  const fromMe = userInfo?._id === message.senderId;
   const profilePic = fromMe ? userInfo?.profilePic : selectedConversation?.profilePic;
-  const formattedTime = extractTime(messages.createdAt);
+  const formattedTime = extractTime(message.createdAt);
 
   // useEffect() to fetch user info
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function Message({ messages }) {
     };
   }, [contextMenuRef]);
 
-  // useEffect() to listen delete messages
+  // useEffect() to listen delete message
   useEffect(() => {
     if (socket) {
       socket.on('deleteMessage', (messageId) => {
@@ -52,11 +52,11 @@ export default function Message({ messages }) {
         socket.off('deleteMessage');
       };
     }
-  }, [socket, messages]);
+  }, [socket, message]);
 
-  // function to copy messages
+  // function to copy message
   const handleCopyClick = () => {
-    navigator.clipboard.writeText(messages.message).then(() => {
+    navigator.clipboard.writeText(message.message).then(() => {
       toast.success('Message copied to clipboard!');
     }).catch(err => {
       console.error('Failed to copy: ', err);
@@ -81,10 +81,10 @@ export default function Message({ messages }) {
     setIsOpen(false);
   };
   
-  // function to handle delete from me messages
+  // function to handle delete from me message
   const handleDeleteForMeClick = async (id) => {
     try {
-      const response = await fetch(`${HOST}/api/messages/deleteforuser/${id}`, {
+      const response = await fetch(`${HOST}/api/message/deleteforuser/${id}`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
@@ -98,12 +98,14 @@ export default function Message({ messages }) {
     setIsOpen(false);
   };
 
-  // Emit seen event for incoming messages
+  // Emit seen event for incoming message
   useEffect(() => {
     if (!fromMe && socket) {
-      socket.emit('messageSeen', { messageId: messages._id, userId: userInfo._id });
+      socket.emit('messageSeen', { messageId: message._id, userId: userInfo._id });
     }
-  }, []);
+  }, [messages, socket, userInfo]);
+
+  
 
   return (
     <div className={`chat ${fromMe ? 'chat-end' : 'chat-start'} relative group`}>
@@ -114,12 +116,12 @@ export default function Message({ messages }) {
       </div>
 
       <div onContextMenu={(e)=>e.preventDefault()} className={`chat-bubble break-words ${fromMe ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'}`}>
-        {messages.message}
+        {message.message}
       </div>
 
       <div className='text-[12px] chat-footer opacity-50 text-black flex gap-1 items-center pb-2'>
         {formattedTime}
-        {fromMe && messages.seenBy?.includes(selectedConversation?._id) && <span>(Seen)</span>}
+        {fromMe && message.seenBy?.includes(selectedConversation?._id) && <span>(Seen)</span>}
       </div>
 
       <span
@@ -140,11 +142,11 @@ export default function Message({ messages }) {
           {fromMe && <hr className='m-1' />}
           {!fromMe && <hr className='m-1' />}
 
-          <div onClick={() => handleDeleteForMeClick(messages._id)} className='p-2 cursor-pointer flex items-center justify-between gap-1 hover:bg-gray-100'>Delete<span><RiDeleteBin2Fill className='text-red-500' /></span></div>
+          <div onClick={() => handleDeleteForMeClick(message._id)} className='p-2 cursor-pointer flex items-center justify-between gap-1 hover:bg-gray-100'>Delete<span><RiDeleteBin2Fill className='text-red-500' /></span></div>
 
           {fromMe && <hr className='m-1' />}
 
-          {fromMe && <div onClick={() => handleDeleteClick(messages._id)} className='p-2 cursor-pointer flex items-center justify-between gap-1 hover:bg-gray-100'>Unsend<span><TiDelete className='text-red-500' /></span></div>}
+          {fromMe && <div onClick={() => handleDeleteClick(message._id)} className='p-2 cursor-pointer flex items-center justify-between gap-1 hover:bg-gray-100'>Unsend<span><TiDelete className='text-red-500' /></span></div>}
         </div>
       )}
     </div>

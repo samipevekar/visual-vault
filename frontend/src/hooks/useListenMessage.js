@@ -3,16 +3,15 @@ import useConversation from "../zustand/userConversation"
 import shopContext from "../Context/ShopContext"
 
 const useListenMessage = ()=>{
-    const {socket} = useContext(shopContext)
-    const {messages,setMessages} = useConversation()
+    const {socket,markMessagesAsSeen} = useContext(shopContext)
+    const {messages,setMessages,selectedConversation} = useConversation()
 
     useEffect(()=>{
         socket?.on("newMessage",(newMessage)=>{
             setMessages([...messages,newMessage])
         })
-
         return ()=> socket?.off("newMessage")
-    },[socket,setMessages,messages])
+    },[socket,setMessages,messages,selectedConversation._id])
 }
 
 

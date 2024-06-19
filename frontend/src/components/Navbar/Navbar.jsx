@@ -39,19 +39,16 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="navbar z-1 sticky-top navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar z-1 sticky-top navbar-expand-lg bg-white">
   <div className="container-fluid">
     {localStorage.getItem("auth-token")?<img src={hamburger_logo} className={isOpen?'hamburger hamOpen':"hamburger"} onClick={handle_toggle}  alt="" />:<></>}
-    <div className="logo">
-      <img src={gallery_logo} id='logo' alt="" />
+    <Link to="/"><div className="logo">
+      <img src={gallery_logo} id='logo'  alt="" />
       <p>Visual Vault</p>
-    </div>
+    </div></Link>
 
     {/* If user is not Logged In then shows 'Home' button */}
     {localStorage.getItem("auth-token")?<></>:<ul className=" navbar-nav me-auto mb-2 mb-lg-0" style={{marginLeft:'20px'}}>
-      <li className="nav-item" >
-            <Link className="nav-link text-black " to="/" >Home</Link>
-      </li>
 
     </ul>}
 

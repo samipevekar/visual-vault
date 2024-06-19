@@ -6,8 +6,8 @@ import useConversation from "../zustand/userConversation";
 
 export default function ContextApi(props) {
 
-  // const HOST = "https://visual-vault-backend.onrender.com"
-  const HOST = "http://localhost:4000";
+  const HOST = "https://visual-vault-backend.onrender.com"
+  // const HOST = "http://localhost:4000";
 
   const [isOpen, setIsOpen] = useState(false);
   const handle_toggle = () => setIsOpen(!isOpen);
@@ -34,9 +34,9 @@ export default function ContextApi(props) {
   };
 
   const [allUsers, setAllUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [userLoading, setUserLoading] = useState(false);
   const getAllUsers = async () => {
-    setLoading(true);
+    setUserLoading(true);
     try {
       const response = await fetch(`${HOST}/api/auth/allusers`, {
         method: "GET",
@@ -47,15 +47,16 @@ export default function ContextApi(props) {
     } catch (error) {
       console.error("Internal server error");
     } finally {
-      setLoading(false);
+      setUserLoading(false);
     }
   };
 
+  const [imageLoading,setImageLoading] = useState(false)
   const [imageData, setImageData] = useState([]);
   const all_images = async () => {
     try {
       setProgress(30);
-      setLoading(true);
+      setImageLoading(true);
       const response = await fetch(`${HOST}/api/image/getallimages`, {
         method: "GET",
         headers: { "auth-token": localStorage.getItem("auth-token") }
@@ -67,14 +68,15 @@ export default function ContextApi(props) {
       console.error("Internal server error");
     } finally {
       setProgress(100);
-      setLoading(false);
+      setImageLoading(false);
     }
   };
+
 
   const favorite_images = async () => {
     try {
       setProgress(30);
-      setLoading(true);
+      setImageLoading(true);
       const response = await fetch(`${HOST}/api/image/getfavoriteimage`, {
         method: "GET",
         headers: { "auth-token": localStorage.getItem("auth-token") }
@@ -86,7 +88,7 @@ export default function ContextApi(props) {
       console.error("Internal server error");
     } finally {
       setProgress(100);
-      setLoading(false);
+      setImageLoading(false);
     }
   };
 
@@ -132,11 +134,6 @@ export default function ContextApi(props) {
         setOnlineUsers(users);
       });
 
-      newSocket.on('newMessage', (message) => {
-        // Listen for new messages and update conversations accordingly
-        updateLatestMessage(message);
-      });
-
       setSocket(newSocket);
 
       return () => {
@@ -147,9 +144,9 @@ export default function ContextApi(props) {
   }, [userInfo]);
 
   const { setMessages, selectedConversation, messages } = useConversation();
-
+  const [msgLoading,setMsgLoading] = useState(false)
   const getMessages = async () => {
-        setLoading(true);
+        setMsgLoading(true);
         try {
           const response = await fetch(`${HOST}/api/messages/${selectedConversation._id}`, {
             method: "GET",
@@ -157,19 +154,20 @@ export default function ContextApi(props) {
           });
           const data = await response.json();
           setMessages(data);
-          setLoading(false);
           
         } catch (error) {
           console.error("Internal server error")
+        }finally{
+          setMsgLoading(false)
         }
     }
     
 
   
 
-  const markMessagesAsSeen = async () => {
+  const markMessagesAsSeen = async (id) => {
     try {
-      await fetch(`${HOST}/api/messages/markseen/${selectedConversation._id}`, {
+      await fetch(`${HOST}/api/messages/markseen/${id}`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -183,8 +181,7 @@ export default function ContextApi(props) {
 
   useEffect(() => {
     if (selectedConversation) {
-      markMessagesAsSeen();
-      getMessages();
+      markMessagesAsSeen(selectedConversation._id);
     }
   }, [selectedConversation]);
 
@@ -208,7 +205,9 @@ export default function ContextApi(props) {
       socket,
       onlineUsers,
       getMessages,
-      loading,
+      userLoading,
+      imageLoading,
+      msgLoading,
       markMessagesAsSeen
     }}>
       {props.children}
