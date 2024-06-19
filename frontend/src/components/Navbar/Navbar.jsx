@@ -47,6 +47,8 @@ export default function Navbar() {
       <p>Visual Vault</p>
     </div></Link>
 
+    <li><Link to="/error">eror</Link></li>
+
     {/* If user is not Logged In then shows 'Home' button */}
     {localStorage.getItem("auth-token")?<></>:<ul className=" navbar-nav me-auto mb-2 mb-lg-0" style={{marginLeft:'20px'}}>
 
