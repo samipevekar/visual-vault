@@ -11,6 +11,7 @@ import DisplayImage from '../../components/DisplayImage/DisplayImage';
 import DisplaySearch from '../../components/DisplaySearch/DisplaySearch';
 import Chats from '../Chats/Chats';
 import Signup from '../Signup/Signup';
+import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
 
 export default function Home() {
   return (
@@ -27,6 +28,8 @@ export default function Home() {
           <Route path="/image/:imageId" element={<DisplayImage />} />
           <Route path="/chats" element={<Chats />} />
           <Route path="/signup" element={<Signup/>}></Route>
+          <Route path="/error" element={<ErrorBoundary/>}></Route>
+          
         </Routes>
       </div>
     </div>
