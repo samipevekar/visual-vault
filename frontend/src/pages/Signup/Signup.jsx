@@ -21,13 +21,16 @@ export default function Signup() {
     const onchangeHandler = (e) => {
         const { name, value } = e.target
         if (name === 'username') {
-            if (!validateUsername(value)) {
+            const trimmedValue = value.trim()
+            if (!validateUsername(trimmedValue)) {
                 setUsernameError("Username must be lowercase and without symbols ")
             } else {
                 setUsernameError("")
             }
+            setCredentials({ ...credentials, [name]: trimmedValue })
+        } else {
+            setCredentials({ ...credentials, [name]: value })
         }
-        setCredentials({ ...credentials, [name]: value })
     }
 
     // Using alert component from shopContext

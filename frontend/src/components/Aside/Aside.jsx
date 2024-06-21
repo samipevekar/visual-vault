@@ -17,17 +17,10 @@ export default function Aside() {
 
   const isLoggedIn = localStorage.getItem("auth-token");     // Checks if user logged in
   
-  // const handleMenuItemClick = () => {
-  //   setProgress(30); // Start the loading process
-  //   setTimeout(() => {
-  //     setProgress(100); // Finish the loading process after a delay
-  //   }, 300); // Adjust the delay as needed
-  // };
-
   
   return (
     <div> 
-        {isLoggedIn &&  <Sidebar id='sidebar' className={!isOpen ? "bg-body-tertiary sidebar" : "sidebar  bg-body-tertiary showSidebar"}>      
+        {isLoggedIn &&  <Sidebar id='sidebar' className={ !isOpen ? "bg-white sidebar z-50" : "sidebar  bg-body-tertiary showSidebar"}>      
         
             <Menu id='menu'>              
                 <MenuItem className='menu_item' title='Home'  component={<Link to="/" ></Link>}>

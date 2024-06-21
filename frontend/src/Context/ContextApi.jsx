@@ -51,7 +51,7 @@ export default function ContextApi(props) {
     }
   };
 
-  const [imageLoading,setImageLoading] = useState(false)
+  const [imageLoading, setImageLoading] = useState(false);
   const [imageData, setImageData] = useState([]);
   const all_images = async () => {
     try {
@@ -71,7 +71,6 @@ export default function ContextApi(props) {
       setImageLoading(false);
     }
   };
-
 
   const favorite_images = async () => {
     try {
@@ -144,26 +143,22 @@ export default function ContextApi(props) {
   }, [userInfo]);
 
   const { setMessages, selectedConversation, messages } = useConversation();
-  const [msgLoading,setMsgLoading] = useState(false)
+  const [msgLoading, setMsgLoading] = useState(false);
   const getMessages = async () => {
-        setMsgLoading(true);
-        try {
-          const response = await fetch(`${HOST}/api/messages/${selectedConversation._id}`, {
-            method: "GET",
-            headers: { "auth-token": localStorage.getItem("auth-token") }
-          });
-          const data = await response.json();
-          setMessages(data);
-          
-        } catch (error) {
-          console.error("Internal server error")
-        }finally{
-          setMsgLoading(false)
-        }
+    setMsgLoading(true);
+    try {
+      const response = await fetch(`${HOST}/api/messages/${selectedConversation._id}`, {
+        method: "GET",
+        headers: { "auth-token": localStorage.getItem("auth-token") }
+      });
+      const data = await response.json();
+      setMessages(data);
+    } catch (error) {
+      console.error("Internal server error");
+    } finally {
+      setMsgLoading(false);
     }
-    
-
-  
+  };
 
   const markMessagesAsSeen = async (id) => {
     try {

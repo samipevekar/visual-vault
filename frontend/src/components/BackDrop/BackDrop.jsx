@@ -9,7 +9,7 @@ export default function BackDrop() {
         setIsOpen(false)
     }
   return (
-    <div className='backdrop' onClick={handleBackdropClick}>
+    <div className='backdrop -z-10' onClick={handleBackdropClick}>
       
     </div>
   )

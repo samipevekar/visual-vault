@@ -47,8 +47,6 @@ export default function Navbar() {
       <p>Visual Vault</p>
     </div></Link>
 
-    <li><Link to="/error">eror</Link></li>
-
     {/* If user is not Logged In then shows 'Home' button */}
     {localStorage.getItem("auth-token")?<></>:<ul className=" navbar-nav me-auto mb-2 mb-lg-0" style={{marginLeft:'20px'}}>
 
@@ -63,7 +61,7 @@ export default function Navbar() {
             alt=""/>
       <p>{localStorage.getItem("auth-token")?userInfo.name:""}</p>
     </div>
-    <div className={isDropdownOpen?`dropdownModal dropdownOpen `:`dropdownModal `}>
+    <div className={isDropdownOpen?`dropdownModal dropdownOpen z-50 `:`dropdownModal z-50`}>
 
       {localStorage.getItem("auth-token")?<div className="userInformation">
         <img src={userInfo.profilePic} alt="" onError={(e) => {
