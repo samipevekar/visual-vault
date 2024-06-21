@@ -2,12 +2,13 @@ import React from 'react'
 import './HomeComponent.css'
 import { Link } from 'react-router-dom'
 import gallery_logo from '../assets/gallery_logo.png'
+import Footer from '../Footer/Footer'
 
 export default function HomeContent() {
 
 
   return (
-    <>
+    <div className='flex-col '>
     <div className="home-container">
         <img src={gallery_logo} className='home-logo' alt="" />
         <h1 className="home-heading fadeIn">Welcome to Visual Vault</h1>
@@ -16,7 +17,10 @@ export default function HomeContent() {
         {localStorage.getItem("auth-token")?<p className="home-paragraph home1-para fadeIn">Enjoy Your Own Gallery!</p>:<p className="home-paragraph home1-para fadeIn">Sign up now to get started!</p>}
         {localStorage.getItem("auth-token")?<></>:<Link to={"/signup"} className="home-button fadeIn">Continue</Link>}
     </div>
-    </>
+
+    
+    <Footer/>
+    </div>
 
   )
 }

@@ -47,7 +47,6 @@ export default function Message({ message }) {
         getMessages();
       });
 
-
       return () => {
         socket.off('deleteMessage');
       };
@@ -80,11 +79,11 @@ export default function Message({ message }) {
     }
     setIsOpen(false);
   };
-  
+
   // function to handle delete from me message
   const handleDeleteForMeClick = async (id) => {
     try {
-      const response = await fetch(`${HOST}/api/message/deleteforuser/${id}`, {
+      const response = await fetch(`${HOST}/api/messages/deleteforuser/${id}`, {
         method: "DELETE",
         headers: {
           'Content-Type': 'application/json',
@@ -105,7 +104,20 @@ export default function Message({ message }) {
     }
   }, [messages, socket, userInfo]);
 
-  
+  // Listen for messageSeen event
+  useEffect(() => {
+    if (socket) {
+      socket.on('messageSeen', ({ messageId, userId }) => {
+        if (message._id === messageId && !message.seenBy.includes(userId)) {
+          message.seenBy.push(userId);
+        }
+      });
+
+      return () => {
+        socket.off('messageSeen');
+      };
+    }
+  }, [socket, message]);
 
   return (
     <div className={`chat ${fromMe ? 'chat-end' : 'chat-start'} relative group`}>
