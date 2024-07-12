@@ -23,7 +23,9 @@ export default function Message({ message }) {
 
   // useEffect() to fetch user info
   useEffect(() => {
-    getUser();
+    if(userInfo){
+      getUser();
+    }
   }, []);
 
   // function to handle outside click of contextmenu

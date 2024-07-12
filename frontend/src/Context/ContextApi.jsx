@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import shopContext from "./ShopContext";
-import toast from "react-hot-toast";
 import io from "socket.io-client";
 import useConversation from "../zustand/userConversation";
 
@@ -11,6 +10,8 @@ export default function ContextApi(props) {
 
   const [isOpen, setIsOpen] = useState(false);
   const handle_toggle = () => setIsOpen(!isOpen);
+
+  const [showModal,setShowModal] = useState(false)  // show/hide modal for images
 
   function formatDate(dateString) {
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
@@ -55,7 +56,7 @@ export default function ContextApi(props) {
   const [imageData, setImageData] = useState([]);
   const all_images = async () => {
     try {
-      setProgress(30);
+      setProgress(10);
       setImageLoading(true);
       const response = await fetch(`${HOST}/api/image/getallimages`, {
         method: "GET",
@@ -74,7 +75,7 @@ export default function ContextApi(props) {
 
   const favorite_images = async () => {
     try {
-      setProgress(30);
+      setProgress(10);
       setImageLoading(true);
       const response = await fetch(`${HOST}/api/image/getfavoriteimage`, {
         method: "GET",
@@ -93,11 +94,7 @@ export default function ContextApi(props) {
 
   const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
-    all_images();
-    favorite_images();
-    getUser();
-  }, []);
+  
 
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
@@ -142,7 +139,7 @@ export default function ContextApi(props) {
     }
   }, [userInfo]);
 
-  const { setMessages, selectedConversation, messages } = useConversation();
+  const { setMessages, selectedConversation } = useConversation();
   const [msgLoading, setMsgLoading] = useState(false);
   const getMessages = async () => {
     setMsgLoading(true);
@@ -203,7 +200,9 @@ export default function ContextApi(props) {
       userLoading,
       imageLoading,
       msgLoading,
-      markMessagesAsSeen
+      markMessagesAsSeen,
+      showModal,
+      setShowModal
     }}>
       {props.children}
     </shopContext.Provider>

@@ -31,7 +31,9 @@ export default function Conversation({ conversation, lastIdx }) {
     };
 
     useEffect(() => {
-        getLatestMessage();
+        if(latestMessage){
+            getLatestMessage();
+        }
     }, [latestMessage, messages]); // Re-fetch on messages or conversation change
 
     const fromMe = latestMessage?.senderId === userInfo?._id;

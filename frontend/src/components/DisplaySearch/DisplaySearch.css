@@ -27,7 +27,8 @@
     height: 75vh;
     border-radius: 4px;
     max-width: fit-content;
-    background: #fcfcfc;box-shadow:  12px 12px 42px #bdbdbd,-12px -12px 42px #ffffff;
+    /* background: #fcfcfc;box-shadow:  12px 12px 42px #bdbdbd,-12px -12px 42px #ffffff; */
+    /* background-color:white; */
     padding: 20px;
     overflow-x: hidden;
     grid-auto-flow: column-reverse;

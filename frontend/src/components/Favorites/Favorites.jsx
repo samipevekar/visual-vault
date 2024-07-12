@@ -11,7 +11,9 @@ export default function Favorites() {
     const {formatDate,favorite_images,imageData,imageLoading} = context 
 
       useEffect(()=>{
-        favorite_images()
+        if(imageData){
+          favorite_images()
+        }
       },[])
       
 

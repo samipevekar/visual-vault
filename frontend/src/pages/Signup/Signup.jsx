@@ -90,7 +90,7 @@ export default function Signup() {
                     <input required type="password" className="input input-bordered w-full max-w-xs my-2 h-12" name='password' placeholder="Enter your password" onChange={onchangeHandler} value={credentials.password} />
                 </div>
 
-                {state === "signup" ? <div className='d-flex gap-4 '>
+                {state === "signup" ? <div className='flex gap-4  '>
                     <label className='flex gap-2'>
                         <input type="radio" name='gender' value="male" className='radio'
                             checked={credentials.gender === 'male'} onChange={onchangeHandler} /> {""}

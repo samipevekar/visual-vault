@@ -4,7 +4,7 @@ import ChatMessageContainer from '../../components/ChatMessageContainer/ChatMess
 
 export default function Chats() {
   return (
-    <div className='flex m-2 h-[550px] z-0'>
+    <div className='flex m-2 h-[550px] z-0' >
       <ChatSidebar/>
       <ChatMessageContainer/>
     </div>

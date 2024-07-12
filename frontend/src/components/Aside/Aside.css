@@ -6,6 +6,7 @@
     overflow-y: auto;
     display: none;
     z-index: 100 !important;
+    border-right: 1.5px solid rgba(128, 128, 128, 0.103) !important; 
 
 }
 #sidebar ::-webkit-scrollbar{
