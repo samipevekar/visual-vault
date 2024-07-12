@@ -3,6 +3,10 @@
     justify-content: center;
     align-items: center;
     height: 90vh;
+    display:none;
+}
+.display_image.showModal{
+    display: flex;
 }
 .show_image{
     display: flex;
@@ -12,7 +16,9 @@
     height: 500px;
     border-radius: 5px;
     position: relative;
-    box-shadow:  13px 13px 100px #b7b7b7, -13px -13px 100px #ffffff;
+    background-color:white;
+    box-shadow: 0px 0px 10px white;
+    border:1px solid gray;
     padding: 10px;
 
 }

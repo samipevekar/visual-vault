@@ -2,7 +2,7 @@
 .personal_images{
     width: 180px;
     height: 180px;
-    object-fit: contain;
+    /* object-fit: contain; */
     box-shadow: 0px 0px 20px rgb(210, 210, 210);
     /* border-radius: 5px; */
     position: relative;
@@ -24,6 +24,8 @@
 }
 .Images:hover .image-icons{
     opacity: 1;
+    
+    
 }
 .delete_icon{
     width: 20px;
@@ -39,6 +41,7 @@
     position: absolute;
     bottom: 5px;
     right: 40px;
+
 }
 .image-date{
     text-align: right;

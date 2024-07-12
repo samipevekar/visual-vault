@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import { Sidebar, Menu, MenuItem} from 'react-pro-sidebar';
 import { Link } from 'react-router-dom';
 import './Aside.css';
 import home_icon from '../assets/home.png';
@@ -13,14 +13,14 @@ import shopContext from '../../Context/ShopContext';
 
 export default function Aside() {
   const context = useContext(shopContext);
-  const { isOpen, setProgress } = context;
+  const { isOpen } = context;
 
   const isLoggedIn = localStorage.getItem("auth-token");     // Checks if user logged in
   
   
   return (
     <div> 
-        {isLoggedIn &&  <Sidebar id='sidebar' className={ !isOpen ? "bg-white sidebar z-50" : "sidebar  bg-body-tertiary showSidebar"}>      
+        {isLoggedIn &&  <Sidebar id='sidebar' className={ !isOpen ? "bg-white sidebar z-50 border-r-[1.5px] border-gray-100" : "sidebar  bg-white showSidebar"}>      
         
             <Menu id='menu'>              
                 <MenuItem className='menu_item' title='Home'  component={<Link to="/" ></Link>}>

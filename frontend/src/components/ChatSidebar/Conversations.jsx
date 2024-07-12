@@ -7,7 +7,9 @@ export default function Conversations() {
   const { allUsers, getAllUsers, userLoading, onlineUsers } = useContext(shopContext)
 
   useEffect(() => {
-      getAllUsers();
+    if(allUsers){
+      getAllUsers()
+    }
   }, []);
 
   // Function to sort users based on online status

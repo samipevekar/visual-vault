@@ -1,96 +1,95 @@
-import React from 'react'
-import './About.css'
+import React from 'react';
 
 export default function About() {
-  let obj = {name: "sami"}
   return (
-    <div className="container my-5 aboutContainer">
-    <div className="accordion" id="accordionExample">
-      <div className="accordion-item">
-        <h2 className="accordion-header">
-          <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            About Visual Vault
-          </button>
-        </h2>
-        <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-          <div className="accordion-body">
-            Welcome to Visual Vault, your secure haven for storing and safeguarding your cherished memories through images
+    <div className="py-8">
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto">
+          {/* About Visual Vault */}
+          <div className="bg-white rounded-lg shadow-md mb-4">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-red-500">About Visual Vault</h2>
+            </div>
+            <div className="p-4">
+              <p className="text-gray-700">
+                Welcome to Visual Vault, your secure haven for storing and safeguarding your cherished memories through images.
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="accordion-item">
-        <h2 className="accordion-header">
-          <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            Our Mission
-          </button>
-        </h2>
-        <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div className="accordion-body">
-            At Visual Vault, our mission is simple yet profound: to provide a seamless, private, and reliable space for users to preserve their visual narratives
+
+          {/* Our Mission */}
+          <div className="bg-white rounded-lg shadow-md mb-4">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-red-500">Our Mission</h2>
+            </div>
+            <div className="p-4">
+              <p className="text-gray-700">
+                At Visual Vault, our mission is simple yet profound: to provide a seamless, private, and reliable space for users to preserve their visual narratives.
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="accordion-item">
-        <h2 className="accordion-header">
-          <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Privacy and Security
-          </button>
-        </h2>
-        <div id="collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div className="accordion-body">
-            Your privacy is our utmost priority
+
+          {/* Privacy and Security */}
+          <div className="bg-white rounded-lg shadow-md mb-4">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-red-500">Privacy and Security</h2>
+            </div>
+            <div className="p-4">
+              <p className="text-gray-700">
+                Your privacy is our utmost priority.
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="accordion-item">
-        <h2 className="accordion-header">
-          <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-            User-Centric Experience
-          </button>
-        </h2>
-        <div id="collapseFour" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div className="accordion-body">
-            We strive to create an intuitive and user-friendly experience for our community
+
+          {/* User-Centric Experience */}
+          <div className="bg-white rounded-lg shadow-md mb-4">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-red-500">User-Centric Experience</h2>
+            </div>
+            <div className="p-4">
+              <p className="text-gray-700">
+                We strive to create an intuitive and user-friendly experience for our community.
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="accordion-item">
-        <h2 className="accordion-header">
-          <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-            Community Engagement
-          </button>
-        </h2>
-        <div id="collapseFive" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div className="accordion-body">
-            Visual Vault isn't just a repository for images; it's a vibrant community of like-minded individuals passionate about visual storytelling
+
+          {/* Community Engagement */}
+          <div className="bg-white rounded-lg shadow-md mb-4">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-red-500">Community Engagement</h2>
+            </div>
+            <div className="p-4">
+              <p className="text-gray-700">
+                Visual Vault isn't just a repository for images; it's a vibrant community of like-minded individuals passionate about visual storytelling.
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="accordion-item">
-        <h2 className="accordion-header">
-          <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-            Our Commitment to Innovation
-          </button>
-        </h2>
-        <div id="collapseSix" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div className="accordion-body">
-            In a rapidly evolving digital landscape, Visual Vault remains at the forefront of innovation
+
+          {/* Our Commitment to Innovation */}
+          <div className="bg-white rounded-lg shadow-md mb-4">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-red-500">Our Commitment to Innovation</h2>
+            </div>
+            <div className="p-4">
+              <p className="text-gray-700">
+                In a rapidly evolving digital landscape, Visual Vault remains at the forefront of innovation.
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="accordion-item">
-        <h2 className="accordion-header">
-          <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-            Join Visual Vault Today
-          </button>
-        </h2>
-        <div id="collapseSeven" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div className="accordion-body">
-            Embark on your journey of visual preservation with Visual Vault
+
+          {/* Join Visual Vault Today */}
+          <div className="bg-white rounded-lg shadow-md">
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-red-500">Join Visual Vault Today</h2>
+            </div>
+            <div className="p-4">
+              <p className="text-gray-700">
+                Embark on your journey of visual preservation with Visual Vault.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
-  )
+  );
 }

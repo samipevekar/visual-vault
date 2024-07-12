@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 #logo{
     width: 60px;
 }
@@ -17,6 +18,7 @@
     font-weight: bold;
     font-size: 15px;
     margin: auto;
+    font-family: "Roboto", sans-serif;
 }
 #sign_btn{
     background-color: transparent !important; 
@@ -56,6 +58,7 @@
 .userLogo p{
     display: inline;
     margin:8px 10px;
+    font-family: "Roboto", sans-serif;
     cursor: pointer;
 }
 .dropdownModal{
@@ -99,5 +102,10 @@
     }
     .hamburger.hamOpen{
         transform: rotate(180deg);
+    }
+}
+@media (max-width:500px){
+    .userLogo p{
+        display: none;
     }
 }

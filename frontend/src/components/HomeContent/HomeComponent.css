@@ -97,3 +97,17 @@
     margin-top: 0;
   }
 }
+@media (max-width:700px){
+    .home-paragraph{
+        font-size: 18px;
+  }
+  .home-heading{
+    font-size: 40px;
+  }
+  .home-logo{
+    width: 100px;
+  }
+  .home1-para{
+    font-size:22px;
+  }
+}

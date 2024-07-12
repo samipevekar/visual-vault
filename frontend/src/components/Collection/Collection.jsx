@@ -15,7 +15,9 @@ export default function Collection() {
 
   // Calling functions 
   useEffect(()=>{
-    all_images()
+    if(imageData){
+      all_images()
+    }
   },[]) 
   
   return (
