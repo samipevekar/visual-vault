@@ -20,7 +20,7 @@ export default function Aside() {
   
   return (
     <div> 
-        {isLoggedIn &&  <Sidebar id='sidebar' className={ !isOpen ? "bg-white sidebar z-50 border-r-[1.5px] border-gray-100" : "sidebar  bg-white showSidebar"}>      
+        {isLoggedIn &&  <Sidebar id='sidebar' className={ !isOpen ? "bg-white sidebar z-50 border-r-[1.5px] border-gray-300" : "sidebar border-gray-300  bg-white showSidebar"}>      
         
             <Menu id='menu'>              
                 <MenuItem className='menu_item' title='Home'  component={<Link to="/" ></Link>}>

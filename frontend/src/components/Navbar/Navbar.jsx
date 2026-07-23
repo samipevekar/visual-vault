@@ -31,7 +31,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="navbar z-10 border-b-[1.5px] border-gray-100 bg-white">
+      <nav className="navbar z-10 border-b-[1.5px] border-gray-300 bg-white">
         <div className="container mx-auto flex justify-between  ">
           {localStorage.getItem('auth-token') ? (
             <img

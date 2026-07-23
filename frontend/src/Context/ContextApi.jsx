@@ -20,9 +20,10 @@ export default function ContextApi(props) {
     return `${day} ${month} ${year}`;
   }
 
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState([]);
   const getUser = async () => {
     try {
+      setProgress(10)
       const response = await fetch(`${HOST}/api/auth/getuser`, {
         method: "GET",
         headers: { "auth-token": localStorage.getItem("auth-token") }
@@ -31,8 +32,14 @@ export default function ContextApi(props) {
       setUserInfo(data);
     } catch (error) {
       console.error("Internal server error");
+    }finally{
+      setProgress(100)
     }
   };
+
+  useEffect(()=>{
+    getUser()
+  },[])
 
   const [allUsers, setAllUsers] = useState([]);
   const [userLoading, setUserLoading] = useState(false);

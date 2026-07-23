@@ -2,9 +2,9 @@ import React from 'react';
 
 export default function About() {
   return (
-    <div className="py-8">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto">
+    <div className="py-8 h-[85vh] overflow-auto my-10">
+      <div className="container mx-auto px-4 ">
+        <div className="max-w-3xl mx-auto  flex flex-col justify-center">
           {/* About Visual Vault */}
           <div className="bg-white rounded-lg shadow-md mb-4">
             <div className="px-6 py-4 border-b border-gray-200">

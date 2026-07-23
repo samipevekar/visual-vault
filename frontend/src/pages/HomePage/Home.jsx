@@ -1,7 +1,7 @@
 import React from 'react';
 import './Home.css';
 import { Routes, Route,Navigate } from 'react-router-dom';
-import Loader from '../../components/Loader/Loader';
+const Loader = React.lazy(()=>import('../../components/Loader/Loader'));
 const  Aside = React.lazy(()=>import("../../components/Aside/Aside")) ;
 const About = React.lazy(()=>import('../../components/About/About'))  ;
 const HomeContent = React.lazy(()=>import('../../components/HomeContent/HomeContent')) ;
@@ -21,7 +21,7 @@ export default function Home() {
     <div className='homepage'>
       <React.Suspense fallback=''><Aside /></React.Suspense>
       <div className='homeComponents'>
-          <DisplayImage/> 
+          <React.Suspense fallback={<Loader/>} > <DisplayImage/></React.Suspense>
         <Routes>
           <Route path="/" element={<React.Suspense fallback={<Loader/>}><HomeContent /></React.Suspense>} />
           <Route path="/addimage" element={authUser ? <React.Suspense fallback={<Loader/>}><Addimage /></React.Suspense>  : <Navigate to="/signup"/>} />
